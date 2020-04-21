@@ -1,0 +1,48 @@
+NATURE: id, nom
+UTILISATEUR: id, nom, login, mdp, emploi, niveau_autorisation
+:
+GAMME: id, nom, finition, isolant, couverture, qualite
+
+QUALIFIE, 11 MODULE, 1N NATURE
+:
+:
+TYPE, 1N GAMME, 11 MODULE
+
+:
+:
+PARAMETRE: id, taux_marge
+FIXE, 1N MODULE, 11 PARAMETRE
+MODULE: id, nature_id, pa, pv, quantite_stock, cctp_chemin, cp_chemin
+CHIFFRE, 11 MODULE, 1N DEVIS
+DEVIS: id, nom, statut, ref_client, ref_projet, date
+
+:
+:
+:
+:
+:
+DEMANDE, ON DEVIS, 0N COMMANDE
+EST_ETABLI, 0N CLIENT, 11 DEVIS
+
+
+:
+:
+:
+:
+CONSTITUE, 1N ARTICLE, 0N MODULE: tarif
+:
+CLIENT: id, denomination, comp_destinataire, com_geo, rue, cp, ville
+
+COMPOSE, 0N ARTICLE, 1N ARTICLE
+ARTICLE: id, nom, pa, pv, stockable, quantite_stock, emplacement
+ALIMENTE, 0N ARTICLE, 1N COMMANDE
+
+:
+:
+FOURNIT, 1N ARTICLE, 1N FOURNISSEUR
+:
+COMMANDE: id, date, prix
+
+:
+FOURNISSEUR: id, denomination, comp_destinataire, com_geo, rue, cp, ville
+PASSE, 0N FOURNISSEUR, 11 COMMANDE
